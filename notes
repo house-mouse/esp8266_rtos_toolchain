@@ -1,0 +1,7 @@
+
+git submodule --init
+git submodule add https://github.com/crosstool-ng/crosstool-ng
+git submodule add https://github.com/espressif/esptool
+git submodule add https://github.com/espressif/ESP8266_RTOS_SDK.git
+
+

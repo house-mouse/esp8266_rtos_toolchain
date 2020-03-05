@@ -1,0 +1,11 @@
+make
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+":$PATH"}"
+    fi
+}
+export IDF_PATH=${PWD}/ESP8266_RTOS_SDK
+pathadd(${PWD}/xtensa-lx106-elf/bin/)
+pathadd(${PWD}/bin/)
+
+
