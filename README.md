@@ -35,3 +35,7 @@ which has prompted me to refresh and use the more recent espressif
 ESP8266_RTOS_SDK rather than esp-open-rtos...
 
 
+USAGE:
+
+source setpath
+

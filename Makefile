@@ -35,7 +35,12 @@ xtensa-lx106-elf/.FETCHED: $(TOOLCHAIN_FILENAME)
 	tar -xzf $(TOOLCHAIN_FILENAME)
 	touch xtensa-lx106-elf/.FETCHED
 
-bin/esptool.py: bin
+
+esptool/esptool.py:
+	@echo "You cloned without --recursive, fetching submodules for you."
+	git submodule update --init --recursive
+
+bin/esptool.py: bin esptool/esptool.py
 	cp esptool/esptool.py bin/
 
 bin:
