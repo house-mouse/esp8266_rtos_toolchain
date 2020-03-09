@@ -26,7 +26,7 @@ TOOLCHAIN_BASE    = https://dl.espressif.com/dl/
 
 TOOLCHAIN_FILENAME := $(TOOLCHAIN_$(OSNAME))
 
-all: xtensa-lx106-elf/.FETCHED bin/esptool.py
+all: xtensa-lx106-elf/.FETCHED ESP8266_RTOS_SDK/components/libesphttpd bin/esptool.py
 
 $(TOOLCHAIN_FILENAME):
 	wget -c $(TOOLCHAIN_BASE)$(TOOLCHAIN_FILENAME)
@@ -35,6 +35,8 @@ xtensa-lx106-elf/.FETCHED: $(TOOLCHAIN_FILENAME)
 	tar -xzf $(TOOLCHAIN_FILENAME)
 	touch xtensa-lx106-elf/.FETCHED
 
+ESP8266_RTOS_SDK/components/libesphttpd: components/libesphttpd
+	ln -s ../../components/libesphttpd ESP8266_RTOS_SDK/components/libesphttpd
 
 esptool/esptool.py:
 	@echo "You cloned without --recursive, fetching submodules for you."
