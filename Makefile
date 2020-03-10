@@ -26,6 +26,13 @@ TOOLCHAIN_BASE    = https://dl.espressif.com/dl/
 
 TOOLCHAIN_FILENAME := $(TOOLCHAIN_$(OSNAME))
 
+.PHONY: check-and-reinit-submodules
+check-and-reinit-submodules:
+	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
+		echo "INFO: Need to reinitialize git submodules"; \
+		git submodule update --init; \
+	fi
+
 all: xtensa-lx106-elf/.FETCHED ESP8266_RTOS_SDK/components/libesphttpd ESP8266_RTOS_SDK/components/heatshrink bin/esptool.py
 
 $(TOOLCHAIN_FILENAME):
