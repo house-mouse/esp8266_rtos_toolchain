@@ -26,14 +26,15 @@ TOOLCHAIN_BASE    = https://dl.espressif.com/dl/
 
 TOOLCHAIN_FILENAME := $(TOOLCHAIN_$(OSNAME))
 
+all: xtensa-lx106-elf/.FETCHED ESP8266_RTOS_SDK/components/libesphttpd ESP8266_RTOS_SDK/components/heatshrink bin/esptool.py
+
 .PHONY: check-and-reinit-submodules
 check-and-reinit-submodules:
 	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
 		echo "INFO: Need to reinitialize git submodules"; \
-		git submodule update --init; \
+		git submodule update --init --recursive; \
 	fi
 
-all: xtensa-lx106-elf/.FETCHED ESP8266_RTOS_SDK/components/libesphttpd ESP8266_RTOS_SDK/components/heatshrink bin/esptool.py
 
 $(TOOLCHAIN_FILENAME):
 	wget -c $(TOOLCHAIN_BASE)$(TOOLCHAIN_FILENAME)
@@ -47,10 +48,6 @@ ESP8266_RTOS_SDK/components/libesphttpd: components/libesphttpd
 
 ESP8266_RTOS_SDK/components/heatshrink: components/heatshrink
 	ln -s ../../components/heatshrink ESP8266_RTOS_SDK/components/heatshrink
-
-esptool/esptool.py:
-	@echo "You cloned without --recursive, fetching submodules for you."
-	git submodule update --init --recursive
 
 bin/esptool.py: bin esptool/esptool.py
 	cp esptool/esptool.py bin/
